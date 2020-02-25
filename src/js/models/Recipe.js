@@ -29,7 +29,7 @@ export default class Recipe {
 	}
 
 	calcServings() {
-		this.calcServings = 4;
+		this.servings = 4;
 	}
 
 	parseIngredients() {

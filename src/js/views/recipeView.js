@@ -9,6 +9,7 @@ const formatCount = count => {
 	if (count) {
 		// count = 2.5 --> 5/2 --> 2 1/2
 		// count = 0.5 --> 1/2
+		// Math.round only give back integers extra math provides workaround
 		const newCount = Math.round(count * 10000) / 10000;
 		const [int, dec] = newCount
 			.toString()
@@ -41,7 +42,7 @@ const createIngredient = ingredient => `
         </li>
 `;
 
-export const renderRecipe = recipe => {
+export const renderRecipe = (recipe, isLiked) => {
 	const markup = `
             <figure class="recipe__fig">
             <img src="${recipe.img}" alt="${recipe.title}" class="recipe__img">
@@ -54,18 +55,14 @@ export const renderRecipe = recipe => {
                 <svg class="recipe__info-icon">
                     <use href="img/icons.svg#icon-stopwatch"></use>
                 </svg>
-                <span class="recipe__info-data recipe__info-data--minutes">${
-					recipe.time
-				}</span>
+                <span class="recipe__info-data recipe__info-data--minutes">${recipe.time}</span>
                 <span class="recipe__info-text"> minutes</span>
             </div>
             <div class="recipe__info">
                 <svg class="recipe__info-icon">
                     <use href="img/icons.svg#icon-man"></use>
                 </svg>
-                <span class="recipe__info-data recipe__info-data--people">${
-					recipe.servings
-				}</span>
+                <span class="recipe__info-data recipe__info-data--people">${recipe.servings}</span>
                 <span class="recipe__info-text"> servings</span>
 
                 <div class="recipe__info-buttons">
@@ -84,18 +81,14 @@ export const renderRecipe = recipe => {
             </div>
             <button class="recipe__love">
                 <svg class="header__likes">
-                    <use href="img/icons.svg#icon-heart-outlined"></use>
+                    <use href="img/icons.svg#icon-heart${isLiked ? "" : "-outlined"}"></use>
                 </svg>
             </button>
         </div>
 
-
-
         <div class="recipe__ingredients">
             <ul class="recipe__ingredient-list">
-
             ${recipe.ingredients.map(el => createIngredient(el)).join("")}
-
             </ul>
 
             <button class="btn-small recipe__btn--add">
@@ -110,18 +103,13 @@ export const renderRecipe = recipe => {
             <h2 class="heading-2">How to cook it</h2>
             <p class="recipe__directions-text">
                 This recipe was carefully designed and tested by
-                <span class="recipe__by">${
-					recipe.author
-				}</span>. Please check out directions at their website.
+                <span class="recipe__by">${recipe.author}</span>. Please check out directions at their website.
             </p>
-            <a class="btn-small recipe__btn" href="${
-				recipe.url
-			}" target="_blank">
+            <a class="btn-small recipe__btn" href="${recipe.url}" target="_blank">
                 <span>Directions</span>
                 <svg class="search__icon">
                     <use href="img/icons.svg#icon-triangle-right"></use>
                 </svg>
-
             </a>
         </div>
     `;

@@ -1,3 +1,5 @@
+// JavaScript written by Derek Evanson with the guided process of Jonas Schmedtmann as part of "Complete JavaScript Course 2020"
+
 import Search from "./models/Search";
 import Recipe from "./models/Recipe";
 import List from "./models/List";
